@@ -7,7 +7,9 @@
 
 body {
   /* background-color: rgb(32, 33, 36); */
-  background-image: url('../img/background.png');z-index: 1;
+  background-image: url('../img/background.png');
+  z-index: 1;
+  background-size: cover;
 }
 
 .header {

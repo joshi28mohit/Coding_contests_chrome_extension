@@ -73,7 +73,10 @@ function findPlatform(data){
     return 'assets/img/hackerrank.svg'
   }
   if(data == 'robocontest.uz'){
-    return 'assets/img/hackerrank.svg'
+    return 'assets/img/robocontest.png'
+  }
+  else{
+    return ''
   }
 }
 
@@ -117,6 +120,15 @@ function findPlatformTitle(data){
   if(data == 'ctftime.org'){
     return 'CTF Time'
   }
+  if(data == 'hackerrank.com'){
+    return 'Hackerrank'
+  }
+  if(data == 'robocontest.uz'){
+    return 'RoboContest'
+  }
+  else{
+    return ''
+  }
 }
 
 function showData(data){
@@ -129,30 +141,21 @@ function showData(data){
               <strong>${code.event.toUpperCase()}</strong>
               - <span class="comp_name">${findPlatformTitle(code.resource.name)}</span> 
                   <span id="myBtn" class="comp_date"><img src = "./assets/icons/calender.jpg"></span>
-                    <div id="myModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <p>Some text in the Modal..</p>
-                        </div>
-                    </div>
+
+                  <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+        </div>
+    </div>
               </span>
-              <h3><a href="${code.href}" target="_blank"><img class = "comp_icon" src = "${findPlatform(code.resource.name)}"></a></h3>
+              <h3><a href="${code.href}" alt="C-Square" target="_blank"><img class = "comp_icon" src = "${findPlatform(code.resource.name)}"></a></h3>
               </li>
               `
           ).join('')}
       </ul>
       </div>
     `;
-    // if(data.meta.offset - 15 >= 0) {
-    //   const url_off_g = data.meta.offset - 15;
-    // } else {
-    //   alert("No Data Found");
-    // }
-    // if(data.meta.offset + 15 <= 45) {
-    //   const url_off_l = data.meta.offset + 15;
-    // } else {
-    //   alert("No Data Found");
-    // }
     if(true){
     more.innerHTML = `
       ${data.meta.offset - 15 >= 0 ? `<button class="btn" onclick="getMoreTests('${data.meta.offset - 15}')">Prev</button>` : ''}
