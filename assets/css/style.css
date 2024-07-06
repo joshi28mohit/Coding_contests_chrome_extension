@@ -6,8 +6,8 @@
 }
 
 body {
-  /* background-color: rgb(32, 33, 36); */
-  background-image: url('../img/background.png');
+  background-color: #222831;
+  /* background-image: url('../img/background.png'); */
   z-index: 1;
   background-size: cover;
 }
@@ -16,7 +16,7 @@ body {
   margin: 20px;
   display: flex;
   justify-content: space-between;
-  background-color: #65adff;
+  background-color: #00ADB5;
   padding: 0.8rem 0.8rem 0.5rem 0.8rem;
   top: 0;
   z-index: 100;
@@ -118,6 +118,7 @@ body {
 .comp_icon:hover{
     scale: 1.1;
     transition: scale 0.5s;
+    background-color: #393E46;
   }
   
   ul.test {
@@ -169,7 +170,7 @@ body {
     transition: background 1s;
   }
   .list:hover{
-    color: black;
+    color: #393E46;
     box-shadow: 0 0 5px 5px rgba(0,0,0,0.15);
     transition: background 1s box-shadow 1s ease-in-out;
   }
@@ -179,7 +180,7 @@ body {
   }
 
   .list:hover{
-    background-color: #fff0c2;
+    background-color: #EEEEEE;
     border-radius: 20px;
   }
 
@@ -188,11 +189,22 @@ body {
   }
 
   .list:hover .comp_name{
-    color: red;
+    color: #00ADB5;
+    font-weight: bold;
+  }
+
+  .comp_date{
+    font-size: 14px; background-color:#d8d8d8; padding:5px; border-radius:12px; color:black; margin-left: 2px;
+  }
+
+  .list:hover .comp_date{
+    background-color: #393E46;
+    color:white;
   }
 
   .comp_name{
-    color: rgb(212, 79, 79);
+    color: #00ADB5;
+    font-weight: bold;
   }
 
   .btn {
@@ -242,4 +254,5 @@ body {
   color: black;
   text-decoration: none;
   cursor: pointer;
+  
 }

@@ -20,12 +20,82 @@ function padTo2Digits(num) {
       ].join(':')
     );
   }
+
+  function getcontestendtime(endtime) {
+    let utcDate = endtime; // ISO-8601 formatted date returned from server
+    let localDate = new Date(utcDate);
+    let year = localDate.getFullYear();
+    let month = localDate.getMonth() + 1;
+    let dt = localDate.getDate();
+    let hours = localDate.getHours();
+    let minutes = localDate.getMinutes() > 0 ? (localDate.getMinutes() > 10 ? localDate.getMinutes() : "0" + localDate.getMinutes()) : "00";
+
+
+    var weekday = new Array(7);
+    weekday[0] = "SUN";
+    weekday[1] = "MON";
+    weekday[2] = "TUE";
+    weekday[3] = "WED";
+    weekday[4] = "THU";
+    weekday[5] = "FRI";
+    weekday[6] = "SAT";
+
+    minutes = minutes - 30 + 60;
+    hours = hours + 5;
+    if(minutes == 60) {
+      minutes = '00';
+      hours += 1;
+    }
+
+    let day = weekday[localDate.getDay()];
+    let result = "END :   " + day + " " +
+        dt + "/" + month + "/" + year + "   " + hours + ":" + minutes;
+    return result;
+}
+
+function getdateofstart(start_time) {
+  let utcDate = start_time;
+  let localDate = new Date(utcDate);
+  let year = localDate.getFullYear();
+  let month = localDate.getMonth() + 1;
+  let dt = localDate.getDate();
+
+  var weekday = new Array(7);
+  weekday[0] = "SUN";
+  weekday[1] = "MON";
+  weekday[2] = "TUE";
+  weekday[3] = "WED";
+  weekday[4] = "THU";
+  weekday[5] = "FRI";
+  weekday[6] = "SAT";
+
+  let day = weekday[localDate.getDay()];
+  let res = day + " " + dt + "/" + month + "/" + year;
+  res = 'START' + ' : ' + res;
+  return res;
+}
+
+function gettimeofstart(start_time) {
+  let utcDate = start_time; // ISO-8601 formatted date returned from server
+  let localDate = new Date(utcDate);
+  let hours = localDate.getHours() > 0 ? (localDate.getHours() >= 10 ? localDate.getHours() : "0" + localDate.getHours()) : "00";
+  let minutes = localDate.getMinutes() > 0 ? (localDate.getMinutes() >= 10 ? localDate.getMinutes() : "0" + localDate.getMinutes()) : "00";
+  minutes = minutes+30;
+  hours = hours + 5;
+  if(minutes == 60) {
+    minutes = '00';
+    hours += 1;
+  }
+  let result = hours + ":" + minutes;
+  return result;
+}
+
 // const apiURL = "https://clist.by";
 
 async function getData() {
     const res = await fetch(`https://clist.by:443/api/v1/contest/?username=mo-jo-dev&api_key=0965da70e684b0485eedc5cf7209098afe12519a&limit=15&offset=0&start__gte=${formatDate(new Date())}&order_by=start&duration__lt=999999`);
     const data = await res.json();
-    // console.log(data);
+    console.log(data);
     showData(data);
 }
 
@@ -76,7 +146,7 @@ function findPlatform(data){
     return 'assets/img/robocontest.png'
   }
   else{
-    return ''
+    return 'assets/img/qm.png'
   }
 }
 
@@ -85,7 +155,7 @@ function findPlatformTitle(data){
     return 'CodeForces'
   }
   if(data == 'codingninjas.com/codestudio'){
-    return 'CodingNinjas'
+    return 'Coding Ninjas'
   }
   if(data == 'atcoder.jp'){
     return 'AtCoder'
@@ -127,7 +197,7 @@ function findPlatformTitle(data){
     return 'RoboContest'
   }
   else{
-    return ''
+    return 'unknown'
   }
 }
 
@@ -140,21 +210,26 @@ function showData(data){
               <li class="list"><span>
               <strong>${code.event.toUpperCase()}</strong>
               - <span class="comp_name">${findPlatformTitle(code.resource.name)}</span> 
-                  <span id="myBtn" class="comp_date"><img src = "./assets/icons/calender.jpg"></span>
-
-                  <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Some text in the Modal..</p>
-        </div>
-    </div>
+                
+              
+              <span id="myBtn" class="comp_date">${getdateofstart(code.start)} ${gettimeofstart(code.start)} - ${getcontestendtime(code.end)}</span>
+              <div id="myModal" class="modal" style="display:none;">
+              <script>console.log(1);</script>
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Some text in the Modal..</p>
+                </div>
+              </div>
               </span>
+
+              
               <h3><a href="${code.href}" alt="C-Square" target="_blank"><img class = "comp_icon" src = "${findPlatform(code.resource.name)}"></a></h3>
               </li>
               `
-          ).join('')}
-      </ul>
-      </div>
+            ).join('')}
+            </ul>
+            </div>      
+            <script src="./assets/js/modal.js"></script>
     `;
     if(true){
     more.innerHTML = `
